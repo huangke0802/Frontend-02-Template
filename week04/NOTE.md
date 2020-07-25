@@ -72,3 +72,54 @@
 	* 在Requset的构造器中收集必要的信息；
 	* 设计一个send函数，把请求真实发送到服务器；
 	* send函数应该是异步的，所有需要返回一个Promise对象；
+
+		response的格式
+
+		HTTP/1.1 200 OK                      status line
+		        状态码
+			http状态码：500，服务器内部错误；
+								 404 找不到网页
+								 30X 重定向
+								 200 Ok有这个网页，返回网页给你
+		
+		Content-Type:text/html               headers
+		Date:Mon,23 Dec 2019 
+		Connection:keep-alive
+		Transfer-Encoding:chunked
+		                                      (空行结束headers)
+																					body
+
+###### 第三步发送请求
+	* 设计支持已有的connection或者自己新建connection
+	* 收到数据传给parser
+	* 根据parser的状态resolve Promise
+
+###### 第四步ResponseParser
+	* Response必须分段构造， 所有我们要用一个ResponseParser来‘装配’
+	* ResponseParser分段处理ResponseText，我们用状态机分析文本的结构
+
+###### 第五步BodyParser总结
+	* Response 的body可能根据Content-Type有不同的结构，因此我们采用自Parser的结构来解决问题
+	* 以TrunkedBodyParser为例，我们同样用状态机来处理body的格式；	
+
+##### parser的实现
+
+###### 第一步总结
+	* 为了方便文件管理，把parser单独拆到文件中
+	* parser接受HTML文本作为参数，返回一颗DOM树
+
+###### 第二步总结
+	* 用FSM来实现HTML的分析
+	* 在HTML标准中，已经规定了HTML的状态
+	* Toy-Brower只挑选其中一部分状态，完成一个最简版本
+
+###### 第三步总结
+	* 解析标签
+		1. 开始标签
+		2. 结束标签
+		3. 自封闭标签
+	* 在这一步暂时忽略所有的属性
+
+###### 第四步总结
+	* 在状态机中，除了状态迁移，还要加入业务逻辑
+	* 在标签结束状态提交标签token
