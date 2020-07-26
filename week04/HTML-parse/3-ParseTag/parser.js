@@ -34,7 +34,7 @@ function endTagOpen(c) {
 }
 
 function tagName(c) {
-  if (c.math(/^[\t\n\f ]$/)) {
+  if (c.match(/^[\t\n\f ]$/)) {
     return beforeAttributeName;
   } else if (c == '/') {
     return selfClosingStartTag;

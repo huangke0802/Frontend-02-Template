@@ -1,7 +1,7 @@
 //利用Symbol的唯一性，用来结束文件
 const EOF = Symbol('EOF');
-let currentToken = null;
 
+let currentToken = null;
 
 function emit(token) {
   console.log(token)
@@ -40,6 +40,10 @@ function tagOpen(c) {
 
 function endTagOpen(c) {
   if (c.match(/^[a-zA-Z]$/)) {
+    currentToken = {
+      type: 'endTag',
+      tagName: ""
+    }
     return tagName(c);
   } else if (c == '>') {
 
@@ -51,13 +55,15 @@ function endTagOpen(c) {
 }
 
 function tagName(c) {
-  if (c.math(/^[\t\n\f ]$/)) {
+  if (c.match(/^[\t\n\f ]$/)) {
     return beforeAttributeName;
   } else if (c == '/') {
     return selfClosingStartTag;
   } else if (c.match(/^[a-zA-Z]$/)) {
+    currentToken.tagName += c;
     return tagName;
   } else if (c == ">") {
+    emit(currentToken)
     return data;
   } else {
     return tagName;
