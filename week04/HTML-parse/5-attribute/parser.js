@@ -61,7 +61,7 @@ function tagName(c) {
   } else if (c == '/') {
     return selfClosingStartTag;
   } else if (c.match(/^[a-zA-Z]$/)) {
-    currentToken.tagName += c;
+    currentToken.tagName += c //.toLowerCase();
     return tagName;
   } else if (c == ">") {
     emit(currentToken)
@@ -74,7 +74,7 @@ function tagName(c) {
 function beforeAttributeName(c) {
   if (c.match(/^[\t\n\f ]$/)) {
     return beforeAttributeName;
-  } else if (c == '>' || c == '/' || c == EOF) {
+  } else if (c == '/' || c == '>' || c == EOF) {
     return afterAttributeName(c);
   } else if (c == '=') {
     // return beforeAttributeName;
@@ -94,7 +94,7 @@ function attributeName(c) {
     return beforeAttributeValue;
   } else if (c == '\u0000') {
 
-  } else if (c == '\"' || c == "'" || c == "<") {
+  } else if (c == "\"" || c == "'" || c == "<") {
 
   } else {
     currentAttribute.name += c;
@@ -105,7 +105,7 @@ function attributeName(c) {
 function beforeAttributeValue(c) {
   if (c.match(/^[\t\n\f ]$/) || c == "/" || c == ">" || c == EOF) {
     return beforeAttributeValue;
-  } else if (c == '\"') {
+  } else if (c == "\"") {
     return doubleQuotedAttributeValue;
   } else if (c == "\'") {
     return singleQuotedAttributeValue;
@@ -119,6 +119,7 @@ function beforeAttributeValue(c) {
 function doubleQuotedAttributeValue(c) {
   if (c == "\"") {
     currentToken[currentAttribute.name] = currentAttribute.value;
+    return afterQuotedAttributeValue;
   } else if (c == "\u0000") {
 
   } else if (c == EOF) {
@@ -130,7 +131,7 @@ function doubleQuotedAttributeValue(c) {
 }
 
 function singleQuotedAttributeValue(c) {
-  if (c == '\'') {
+  if (c == "\'") {
     currentToken[currentAttribute.name] = currentAttribute.value;
     return afterQuotedAttributeValue;
   } else if (c == "\u0000") {
@@ -183,7 +184,7 @@ function UnquotedAttributeValue(c) {
   }
 }
 
-function afterAttributeName() {
+function afterAttributeName(c) {
   if (c.match(/^[\t\n\f ]$/)) {
     return afterAttributeName;
   } else if (c == '/') {

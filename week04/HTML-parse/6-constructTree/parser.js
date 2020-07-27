@@ -162,6 +162,7 @@ function beforeAttributeValue(c) {
 function doubleQuotedAttributeValue(c) {
   if (c == "\"") {
     currentToken[currentAttribute.name] = currentAttribute.value;
+    return afterQuotedAttributeValue;
   } else if (c == "\u0000") {
 
   } else if (c == EOF) {
@@ -226,7 +227,7 @@ function UnquotedAttributeValue(c) {
   }
 }
 
-function afterAttributeName() {
+function afterAttributeName(c) {
   if (c.match(/^[\t\n\f ]$/)) {
     return afterAttributeName;
   } else if (c == '/') {
