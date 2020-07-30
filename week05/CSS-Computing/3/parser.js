@@ -21,6 +21,10 @@ function addCSSRules(text) {
   rules.push(...ast.stylesheet.rules)
 }
 
+function computeCSS(element) {
+  var elements = stack.slice().reverse();
+}
+
 function emit(token) {
   let top = stack[stack.length - 1];
 
@@ -41,6 +45,8 @@ function emit(token) {
         });
       }
     }
+
+    computeCSS(element);
 
     top.children.push(element);
     element.parent = top;

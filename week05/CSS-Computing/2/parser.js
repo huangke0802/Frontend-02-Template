@@ -21,6 +21,11 @@ function addCSSRules(text) {
   rules.push(...ast.stylesheet.rules)
 }
 
+function computeCSS(element) {
+  console.log(rules);
+  console.log('compute CSS for Element', element)
+}
+
 function emit(token) {
   let top = stack[stack.length - 1];
 
@@ -41,6 +46,8 @@ function emit(token) {
         });
       }
     }
+
+    computeCSS(element);
 
     top.children.push(element);
     element.parent = top;
