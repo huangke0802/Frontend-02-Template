@@ -34,7 +34,7 @@
 	* 一个CSS规则的specificity根据包含的简单选择器相加而成
 	
 
-三代排版技术
+* 三代排版技术
 	第一代正常流position、display、
 	第二代flex，
 	第三代grid	
@@ -48,6 +48,6 @@
 	Cross : width x lefft right
 
 
-分行
+* 分行
 	根据主轴尺寸，把元素分进行
 	若设置了no-wrap,则强行分配进第一行

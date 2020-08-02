@@ -168,9 +168,15 @@ function layout(element) {
       } else {
         flexLine.push(item)
       }
+      if (itemStyle[crossSize] !== null && itemStyle[crossSize] !== (void 0)) {
+        crossSpace = Math.max(crossSpace, itemStyle[crossSize]);
+      }
+      mainSpace -= itemStyle[mainSize];
     }
 
   }
+
+  flexLine.mainSpace = mainSpace;
 
 }
 
