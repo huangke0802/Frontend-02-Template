@@ -33,3 +33,21 @@
 	* specificity是个四元组，越左边权重越高
 	* 一个CSS规则的specificity根据包含的简单选择器相加而成
 	
+
+三代排版技术
+	第一代正常流position、display、
+	第二代flex，
+	第三代grid	
+
+	flex-direction:row
+	Main:width x left right
+	Cross: height y top bottom
+
+	flex-direction: column
+	Main : height y top bottom
+	Cross : width x lefft right
+
+
+分行
+	根据主轴尺寸，把元素分进行
+	若设置了no-wrap,则强行分配进第一行
