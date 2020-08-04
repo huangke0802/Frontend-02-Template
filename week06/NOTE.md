@@ -35,3 +35,63 @@
 	* variables
 	* value
 	* 实验
+
+##### 伪类
+	1. 链接/行为
+		* :any-link  任何的超链接，还没有访问过的超链接
+		* :link:visited 访问过的超链接
+		* :hover   鼠标在上面移过
+		* :active  激活状态
+		* :focus   焦点
+		* :target  链接到当前的目标
+
+	2. 树结构
+		* :empty
+		* :nth-child()
+		* :nth-last-child()
+		* :first-child :last-child :only-child
+
+	3. 逻辑型
+		* :not 伪类
+		* :where :has
+
+##### 伪元素(通过选择器向页面添加不存在的元素)
+	* ::before
+	* ::after
+	* ::first-line
+	* ::first-letter
+
+##### first-line 与 first-letter 不通的可用属性
+	* first-line:
+		* font系列
+		* color系列
+		* background 系列
+		* word-spacing
+		* letter-spacing
+		* text-decoration
+		* text-transform
+		* line-height
+	
+	* first-letter
+		* font系列
+		* color系列
+		* background 系列
+		* word-spacing
+		* letter-spacing
+		* text-decoration
+		* text-transform
+		* line-height
+		* float
+		* vertical-align
+		* 盒子模型系列：margin, padding, border
+
+##### 思考题：
+	为什么 first-letter 可以设置 float 之类的，而 first-line 不行呢？
+	
+	答：first-letter是在布局完成之后，确定了一段文字中的第一个文字，可以对其操作布局时性能开销小；
+	而first-line选中的是第一行文字，不同的宽度选中的文字内容不一样，要对其重新布局排版消耗性能大,所以first-letter 可以设置 float 之类的，而 first-line 不行。
+
+
+
+
+	
