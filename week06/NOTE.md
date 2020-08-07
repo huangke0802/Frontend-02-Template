@@ -27,6 +27,11 @@
 		div{
 			background-color:blue;
 		}
+	
+	这部分的学习需要参考标准来学习；产生式；
+
+##### 收集标准试验
+	Array.prototype.slice.call(document.querySelector('#container').children).filter(e => e.getAttribute('data-tag').match(/css/)).map(e => ({name:e.children[1].innerText, url:e.children[1].children[0].href}))
 
 ##### 总结
 	* CSS语法
