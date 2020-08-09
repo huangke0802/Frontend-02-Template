@@ -23,6 +23,8 @@ function data(c) {
 
     attr.classNames.push("")
     return getClassName
+  } else if (c.match(/^[a-zA-Z]$/)) {
+    return getTagName
   } else if (c == EOF) {
     return;
   }
