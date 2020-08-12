@@ -49,3 +49,106 @@
 	* float 与 clear float堆叠
 	* margin折叠
 
+##### BFC合并
+	* Block
+		* Block Container : 里面有BFC的
+			* 能容纳正常流的盒，里面就有BFC，
+	* Block-level Box:外面有BFC的
+	* Block Box = Block Container + Block-level Box: 里外都有BFC的
+
+	Block Container
+		* block
+		* inline-block
+		* tableo-cell
+		* flex item
+		* grid cell
+		* table-caption
+
+	Block-level Box
+
+	Block level              
+		* display : block 
+		* display : flex 
+		* display : table 
+		* display : grid 
+
+	Inline level
+	  * display : inline-block
+	  * display : inline-flex
+	  * display : inline-table
+	  * display : inline-grid
+
+##### 设立BFC  
+	* overflow:hidden
+
+##### BFC合并
+	* block box && overflow:visible
+		* BFC合并与float
+		* BFC合并与边距折叠
+
+##### Flex排版
+	* 收集盒进行
+	* 计算盒在主轴方向的布局
+	* 计算盒在交叉轴方向的排布
+
+	分行 
+		* 根据主轴尺寸，把元素分进行
+		* 若设置了no-wrap, 则强行分配进第一行 
+	
+	计算主轴方向
+		* 找出所有Flex元素
+		* 把主轴方向的剩余尺寸按比例分配给这些元素
+		* 若剩余空间为负数，所有flex元素为0，等比压缩剩余元素
+
+	计算交叉轴方向
+		* 根据每一行中最大元素尺寸计算行高
+		* 根据行高flex-align和item-align，确定元素具体位置
+
+##### 动画与绘制
+	* Animation
+		1. @keyframes 定义
+		2. animation：使用
+
+		@keyframes mykf
+		{
+			from {background:red;}
+			to{background:yellow;}
+		}
+
+		div
+		{
+			animation:mykf 5s infinite;
+		}
+
+	* animation-name :动画名称
+	* animation-duration ：动画的时长
+	* animation-timing-function :动画的时间曲线
+	* animation-delay：动画开始前的延迟
+	* animation-iteration-count：动画的播放次数
+	* animation-direction：动画的方向
+
+	@keyframes mykf{
+		0%{
+			top:0; 
+			transition:top ease;
+		}
+		50%{
+			top:30px;
+			transition:top ease-in;
+		}
+		75%{
+			top:10px;
+			transition:top:10;
+			transition:top ease-out;
+		}
+		100%{
+			top:0;
+			transition:top linear;
+		}
+	}
+
+	* Transition
+		1. transition-property：要变换的属性
+		2. transition-duration：变换的时长
+		3. transition-timing-function：时间曲线
+		4. transition-delay：延迟
