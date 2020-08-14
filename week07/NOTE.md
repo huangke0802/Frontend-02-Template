@@ -152,3 +152,20 @@
 		2. transition-duration：变换的时长
 		3. transition-timing-function：时间曲线
 		4. transition-delay：延迟
+
+##### 颜色
+	* 人眼可见范围400纳米到760纳米；
+	* 印刷行业使用 CMYK，生物识别颜色RGB；
+	* HSL 与 HSV , H:Hue表示色相，S:Saturation 表示纯度，L:lightness 便是亮度，V：Value；
+	* W3C 选择HSL
+
+##### 绘制
+	* 几何图形
+		* border
+		* box-shadow
+		* border-raduis
+	* 文字
+		* font
+		* text-decoration
+	* 位图
+		* background-image
