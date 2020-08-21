@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>使用Range API 逆序排序元素</title>
+</head>
+
+<body>
+  <div id="a">
+    <span>1</span>
+    <p>2</p>
+    <a>3</a>
+    <div>4</div>
+    <div>5</div>
+  </div>
+</body>
+<script>
+  let element = document.getElementById('a')
+
+  function reverseChildren(element) {
+    let range = new Range();
+    range.selectNodeContents(element);
+
+    let fragment = range.extractContents();
+    var l = fragment.childNodes.length;
+    console.log(l)
+    while (l-- > 0) {
+      fragment.appendChild(fragment.childNodes[l])
+    }
+    element.appendChild(fragment)
+  }
+
+  reverseChildren(element)
+</script>
+
+</html>

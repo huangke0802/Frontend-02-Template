@@ -71,3 +71,25 @@
 
 		* addEventListener(type, listener, [,capture]) : 冒泡 与 捕获
 		先捕获 在冒泡 ： 第三个参数设置为true，表示捕获
+
+	* Rang API ：DOM操作万能的API
+		* var range = new Range(); //创建范围
+		* range.setStart(element, 9);
+		* range.setEnd(element, 4);
+		* var range = document.getSlection().getRangeAt(0);
+
+		其他方法
+		* range.setStartBefore
+		* range.setEndBefore
+		* range.setStartAfter
+		* range.setEndAfter
+		* range.selectNode
+		* range.selectNodeContents //选择元素的内容
+
+	 	将元素的内容取出来
+		 * var fragment = range.extractContents();
+		 * range.insertNode(document.createTextNode('aaaa'))
+
+##### CSSOM
+	* CSSOM 源头 ：document.styleSheets
+

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <div id="a">
+    <span>1</span>
+    <p>2</p>
+    <a>3</a>
+    <div>4</div>
+    <div>5</div>
+  </div>
+</body>
+<script>
+  let element = document.getElementById('a')
+    // 元素逆序排序，不需要remove，直接使用appendChild就可以remove
+  function reverseChildren(element) {
+    var l = element.childNodes.length;
+    while (l-- > 0) {
+      element.appendChild(element.childNodes[l])
+    }
+  }
+  reverseChildren(element)
+</script>
+
+</html>
