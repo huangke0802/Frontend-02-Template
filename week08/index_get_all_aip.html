@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+
+</body>
+<script>
+  let names = Object.getOwnPropertyNames(window);
+
+  function filterOut(names, props) {
+    let set = new Set();
+    props.forEach(o => set.add(o));
+    return names.filter(e => !set.has(e));
+  }
+
+  //ECMA 262
+  {
+    let js = new Set();
+    let objects = [
+      "gloabllThis", "console", "Array", "ArrayBuffer",
+      "BigInt", "BigInt64Array", "BigUint64Array",
+      "Boolean", "DataView", "Date", "Error", "EvalError", "Float32Array",
+      "Float64Array", "Function", "Int8Array", "Int16Array", "Int32Array", "Map", "Number", "Object", "Promise", "Proxy", "RangeError", "ReferenceError", "RegExp", "Set", "SharedArrayBuffer", "String", "Symbol", "SyntaxError", "TypeError", "Uint8Array", "Uint8ClampedArray", "Uint16Array", "Uint32Array", "URIError", "WeakMap", 'WeakSet', "Atomics", "JSON", "Math", "Reflect", "NaN", "Boolean", "Infinity", "Undefined ", "Null", "Symbol", "List", "parseFloat", "parseInt", "undefined", "globalThis", "Intl", "decodeURI", "decodeURIComponent", "encodeURI", "encodeURIComponent", "escape", "unescape", "eval", "isFinite", "isNaN"
+    ];
+    objects.forEach(o => js.add(o));
+    names = names.filter(e => !js.has(e));
+  }
+
+  //Subclass of Node
+  names = names.filter(e => {
+    try {
+      return !(window[e].prototype instanceof Node)
+    } catch {
+      return true;
+    }
+  }).filter(e => e != "Node");
+
+  //events
+  names = names.filter(e => !e.match(/^on/));
+
+  //webit private
+  names = names.filter(e => !e.match(/^webkit/))
+
+  //ECMA 402
+  names = names.filter(e => e != 'Intl');
+
+  //https://html.spec.whatwg.org/#window
+</script>
+
+</html>
