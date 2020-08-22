@@ -92,4 +92,24 @@
 
 ##### CSSOM
 	* CSSOM 源头 ：document.styleSheets
+	* window.getComputedStyle(elt,	pseudoElt);
+		elt想要获取的元素， pseudoElt可选，伪元素
 
+##### CSSOM view
+	* 获取redener 或者layout之后的信息
+	* window
+		* window.innerHeight, window.innerWhidth
+		* window.devicePixelRatio
+	*	Window API
+		* 开一个先窗口：window.open('about:blank', 'blank', 'width=100, height=100, left=100,right=100')
+		* moveTo(x,y)
+		* moveBy(x,y)
+		* resizeTo(x,y)
+		* resizeBy(x,y)
+	
+	* scroll 
+		* scroll分为scroll的元素，window的scroll
+
+	* layout API
+		* getClientRects()：元素中生成的所有的盒
+		* getBoundingClientRect()：包含函数中的所有的盒的信息
