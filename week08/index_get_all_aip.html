@@ -50,7 +50,77 @@
   //ECMA 402
   names = names.filter(e => e != 'Intl');
 
-  //https://html.spec.whatwg.org/#window
+  //https://html.spec.whatwg.org/#the-window-object
+  {
+    let js = new Set();
+    let objects = [
+      "open", "name", "close", "closed", "stop", 'window', 'frames', "self", "document", 'defaultView', 'alert', 'confirm', 'print', 'prompt', 'setTimeout', 'onerror', 'postMessage', 'addEventListener'
+
+    ];
+    objects.forEach(o => js.add(o));
+    names = names.filter(e => !js.has(e));
+  }
+
+  //https://html.spec.whatwg.org/#embedded-content
+  {
+    let js = new Set();
+    let objects = ['HTMLAllCollection', 'HTMLFormControlsCollection', 'RadioNodeList', 'HTMLOptionsCollection', 'DOMStringList', 'DocumentOrShadowRoot', 'TrackEvent', 'SubmitEvent', 'FormDataEvent', 'ImageBitmapRenderingContext', 'DataTransfer'];
+    objects.forEach(o => js.add(o));
+    names = names.filter(e => !js.has(e));
+  }
+
+  //https://www.khronos.org/registry/webgl/specs/latest/2.0/#3.3   WebGL的API
+  {
+    let js = new Set();
+    let objects = ['WebGLQuery', 'WebGLSampler', 'WebGLSync', 'WebGLTransformFeedback', 'WebGLVertexArrayObject', 'WebGL2RenderingContextBase'];
+    objects.forEach(o => js.add(o));
+    names = names.filter(e => !js.has(e));
+  }
+  //https://www.khronos.org/registry/webgl/specs/latest/1.0/#5.12
+  {
+    let js = new Set();
+    let objects = ['WebGLContextAttributes', 'WebGLObject', 'WebGLBuffer', 'WebGLFramebuffer', "WebGLProgram", 'WebGLRenderbuffer', 'WebGLShader', 'WebGLTexture', 'WebGLUniformLocation', 'WebGLUniformLocation', 'WebGLActiveInfo', 'WebGLShaderPrecisionFormat', ];
+    objects.forEach(o => js.add(o));
+    names = names.filter(e => !js.has(e));
+  }
+
+  //https://encoding.spec.whatwg.org/#textencoder
+  {
+    let js = new Set();
+    let objects = ['TextEncoderCommon', 'TextEncoderEncodeIntoResult', 'TextEncoder', 'GenericTransformStream', 'TextDecoderStream', 'TextEncoderStream', 'TextDecoder', 'TextDecoderStream'];
+    objects.forEach(o => js.add(o));
+    names = names.filter(e => !js.has(e));
+  }
+
+  //https://drafts.csswg.org/cssom/#the-stylesheetlist-interface
+  {
+    let js = new Set();
+    let objects = ['StyleSheet', 'CSSStyleSheet', 'CSSRuleList', 'CSSRule', 'CSSStyleRule', 'CSSImportRule', 'CSSMediaRule', 'SSFontFaceRule', 'CSSPageRule', 'CSSKeyframesRule', 'CSSKeyframeRule', 'CSSMarginRule', 'CSSNamespaceRule', 'CSSCounterStyleRule', 'CSSSupportsRule', 'CSSFontFeatureValuesRule', 'CSSViewportRule', ];
+    objects.forEach(o => js.add(o));
+    names = names.filter(e => !js.has(e));
+  }
+
+  // https://webaudio.github.io/web-audio-api/#AudioContext
+  {
+    let set = new Set();
+    let objects = ["AudioNode", "MediaStream", "MediaStreamTrackAudioSourceNode", 'MediaStreamEvent', "MediaStreamAudioDestinationNode", "AudioContext", "AudioDestinationNode", "AudioParam", "AnalyserNode", "AudioBuffer", "AudioBufferSourceNode", "AudioListener", "PannerNode", "AudioWorklet", "AudioWorkletGlobalScope", "AudioWorkletNode", "AudioWorkletProcessor", "BiquadFilterNode", "ChannelMergerNode", "ChannelSplitterNode", "ConstantSourceNode", "ConvolverNode", "DelayNode", "DynamicsCompressorNode", "GainNode", "IIRFilterNode", "MediaElementAudioSourceNode", "MediaStreamAudioSourceNode", "MediaStreamTrack", "PeriodicWave", "OscillatorNode", "StereoPannerNode", "WaveShaperNode", "ScriptProcessorNode", "AudioProcessingEvent", "BaseAudioContext", "OfflineAudioContext", "currentTime", "running", "destination", "Event", "oncomplete", "NotSupportedError", "BaseAudioContext.createBuffer()", "IndexSizeError", "numberOfInputs", "BaseAudioContext.createChannelMerger(numberOfInputs)", "numberOfOutputs", "BaseAudioContext.createChannelSplitter(numberOfOutputs)", "BaseAudioContext.createDelay(maxDelayTime)", "BaseAudioContext.createIIRFilter()", "InvalidStateError", "real", "imag", "PeriodicWaveOptions", "disableNormalization", "BaseAudioContext.createPeriodicWave()", "numberOfInputChannels", "numberOfOutputChannels", "BaseAudioContext.createScriptProcessor(bufferSize, numberOfInputChannels, numberOfOutputChannels)", "bufferSize", "onaudioprocess", "ArrayBuffer", "decodeAudioData()", "DOMException", "[[pending promises]]", "DataCloneError", "decoding thread", "EncodingError", "BaseAudioContext.decodeAudioData()", "Promise", "DecodeSuccessCallback()", "DecodeErrorCallback()", "suspend", "close", "resume", "suspended", "latencyHint", "sampleRate", "state", "AudioContext.constructor(contextOptions)", "outputLatency", "closed", "HTMLMediaElement", "void", "AudioContext.createMediaElementSource()", "AudioContext.createMediaStreamSource()", "AudioContext.createMediaStreamTrackSource()", "AudioTimestamp", "contextTime", "performanceTime", "getOutputTimestamp", "[[suspended by user]]", "[[pending resume promises]]", "[[pending\npromises]]", "AudioContextOptions", "AudioContextLatencyCategory", "baseLatency", "channelCount", "OfflineAudioContext.constructor(contextOptions)", "OfflineAudioContext.constructor(numberOfChannels, length, sampleRate)", "createBuffer()", "[[rendering started]]", "[[rendered buffer]]", "startRendering()", "OfflineAudioCompletionEvent", "OfflineAudioContext.suspend()", "OfflineAudioContextOptions", "OfflineAudioCompletionEventInit", "renderedBuffer", "numberOfChannels", "length", "AudioBufferOptions", "[[number of channels]]", "[[length]]", "[[sample rate]]", "[[internal data]]", "AudioBuffer.constructor()", "copyFromChannel()", "bufferOffset", "AudioBuffer.copyFromChannel()", "copyToChannel()", "UnknownError", "source", "AudioBuffer.copyToChannel()", "Float32Array", "[[internal\ndata]]", "AudioBuffer.getChannelData()", "getChannelData()", "AudioBufferSourceNode.start", "buffer", "outputBuffer", "channelCountMode", "channelInterpretation", "value", "EventTarget", "ChannelCountMode", "max", "discrete", "AudioScheduledSourceNode", "mediaElement", "[[callable process]]", "maxChannelCount", "explicit", "speakers", "AudioNode.connect(destinationNode, output, input)", "InvalidAccessError", "AudioNode.connect(destinationParam, output)", "destinationParam", "AudioNode.disconnect(output)", "AudioNode.disconnect(destinationNode)", "AudioNode.disconnect(destinationNode, output)", "AudioNode.disconnect(destinationNode, output, input)", "AudioNode.disconnect(destinationParam)", "AudioNode.disconnect(destinationParam, output)", "AudioNodeOptions", "automationRate", "a-rate", "k-rate", "minValue", "maxValue", "setValueAtTime()", "linearRampToValueAtTime()", "exponentialRampToValueAtTime()", "setTargetAtTime()", "setValueCurveAtTime()", "defaultValue", "playbackRate", "detune", "threshold", "knee", "ratio", "attack", "release", "panningModel", "HRTF", "[[current value]]", "cancelScheduledValues()", "cancelAndHoldAtTime()", "AudioParam.cancelAndHoldAtTime()", "RangeError", "cancelTime", "AudioParam.cancelScheduledValues()", "setValueAtTime(value, currentTime)", "AudioParam.exponentialRampToValueAtTime()", "AudioParam.linearRampToValueAtTime()", "AudioParam.setTargetAtTime()", "AudioParam.setValueAtTime()", "AudioParam.setValueCurveAtTime()", "start()", "stop()", "duration", "[[source started]]", "AudioScheduledSourceNode.start(when)", "when", "AudioScheduledSourceNode.stop(when)", "AnalyserNode.constructor()", "fftSize", "getByteFrequencyData()", "getFloatFrequencyData()", "maxDecibels", "minDecibels", "Uint8Array", "frequencyBinCount", "AnalyserNode.getByteFrequencyData()", "AnalyserNode.getByteTimeDomainData()", "AnalyserNode.getFloatFrequencyData()", "AnalyserNode.getFloatTimeDomainData()", "AnalyserOptions", "smoothingTimeConstant", "loop", "stop", "AudioBufferSourceNode.constructor()", "[[buffer set]]", "loopStart", "loopEnd", "AudioBufferSourceNode.start(when, offset, duration)", "AudioBufferSourceOptions", "listener", "positionX", "positionY", "positionZ", "forwardX", "forwardY", "forwardZ", "upX", "upY", "upZ", "setOrientation()", "AudioListener.setOrientation()", "setPosition()", "AudioListener.setPosition()", "AudioProcessingEventInit", "inputBuffer", "playbackTime", "frequency", "BiquadFilterNode.constructor()", "lowpass", "highpass", "Q", "bandpass", "notch", "allpass", "peaking", "lowshelf", "highshelf", "float", "type", "BiquadFilterNode.getFrequencyResponse()", "BiquadFilterOptions", "gain", "ChannelMergerOptions", "createChannelMerger", "ChannelMergerNode.constructor()", "createChannelMerger()", "ChannelSplitterOptions.numberOfOutputs", "createChannelSplitter", "ChannelSplitterOptions", "constructor", "createChannelSplitter()", "ChannelSplitterNode.constructor()", "offset", "ConstantSourceNode.constructor()", "ConstantSourceOptions", "clamped-max", "normalize", "ConvolverNode.constructor()", "number of channels", "sample-rate", "ConvolverOptions", "maxDelayTime", "DelayNode.constructor()", "createDelay()", "DelayOptions", "delayTime", "[[internal reduction]]", "DynamicsCompressorNode.constructor()", "DynamicsCompressorOptions", "[[detector average]]", "[[compressor gain]]", "GainNode.constructor()", "GainOptions", "IIRFilterNode.constructor()", "IIRFilterNode.getFrequencyResponse()", "IIRFilterOptions", "feedforward", "createIIRFilter()", "feedback", "feedback parameter", "feedforward parameter", "createMediaElementSource()", "MediaElementAudioSourceOptions", "MediaElementAudioSourceNode.constructor()", "stream", "MediaStreamAudioDestinationNode.constructor()", "mediaStream", "[[input track]]", "MediaStreamAudioSourceNode.constructor()", "MediaStreamAudioSourceOptions", "mediaStreamTrack", "MediaStreamTrackAudioSourceNode.constructor()", "MediaStreamTrackAudioSourceOptions", "OscillatorNode.constructor()", "custom", "setPeriodicWave()", "sine", "OscillatorNode.setPeriodicWave()", "OscillatorOptions", "periodicWave", "square", "sawtooth", "triangle", "PanningModelType", "equalpower", "DistanceModelType", "inverse", "refDistance", "maxDistance", "rolloffFactor", "PannerNode.constructor()", "coneOuterGain", "coneOuterAngle", "distanceModel", "linear", "exponential", "orientationX", "orientationY", "orientationZ", "PannerNode.setOrientation()", "PannerNode.setPosition()", "PannerOptions", "coneInnerAngle", "options.real", "options.imag", "[[real]]", "[[imag]]", "[[normalize]]", "PeriodicWaveConstraints", "PeriodicWave.constructor()", "createPeriodicWave()", "createScriptProcessor()", "StereoPannerNode.constructor()", "StereoPannerOptions", "pan", "oversample", "2x", "4x", "options", "curve", "[[curve set]]", "WaveShaperNode.constructor()", "none", "WaveShaperOptions", "addModule(moduleUrl)", "registerProcessor()", "addModule()", "audioWorklet", "AudioWorkletProcessorConstructor", "MessagePort", "[[current frame]]", "registerProcessor(name, processorCtor)", "TypeError", "name", "AudioWorkletGlobalScope.registerProcessor(name, processorCtor)", "DOMString", "AudioWorkletNodeOptions", "port", "AudioWorkletNode.constructor()", "MessageChannel", "port1", "port2", "AudioParamMap", "parameterData", "parameters", "AudioParamDescriptor", "outputChannelCount", "process()", "[[node reference]]", "AudioWorkletProcessor.process(inputs, outputs, parameters))", "boolean", "AudioContextState", "close()", "ChannelInterpretation",
+      "MediaSource", "SourceBuffer", "SourceBufferList",
+      "MediaRecorder", "BlobEvent", "MediaRecorderErrorEvent",
+      "MediaKeySystemAccess", "MediaKeys", "MediaKeySession", "MediaKeyStatusMap", "MediaKeySystemAccess", "MediaKeys", "MediaKeySession", "MediaKeyStatusMap", "MediaKeyMessageEvent", "MediaEncryptedEvent",
+      "MediaCapabilities"
+    ]
+    objects.forEach(obj => set.add(obj));
+    names = names.filter(name => {
+      return !set.has(name)
+    });
+  }
+  //https://www.w3.org/TR/IndexedDB/#request-api
+  {
+    let js = new Set();
+    let objects = ['IDBRequest', 'IDBVersionChangeEvent', 'IDBFactory', 'WindowOrWorkerGlobalScope', 'IDBDatabase', 'IDBDatabase', 'IDBIndex', 'IDBKeyRange', 'IDBCursor', 'IDBTransaction'];
+    objects.forEach(o => js.add(o));
+    names = names.filter(e => !js.has(e));
+  }
 </script>
 
 </html>
