@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>交通灯实现2</title>
+  <style>
+    .box {
+      display: flex;
+      justify-content: center;
+      height: 200px;
+      align-items: center;
+    }
+    
+    .box>div {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      background-color: gray;
+      margin: 0 25px;
+    }
+    
+    .light.red {
+      background-color: red;
+    }
+    
+    .light.green {
+      background-color: green;
+    }
+    
+    .light.yellow {
+      background-color: yellow;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="box">
+    <div class='green'></div>
+    <div class='yellow'></div>
+    <div class='red'></div>
+  </div>
+</body>
+<script>
+  //绿灯亮10秒，黄灯亮2秒，红灯亮5秒的顺序无限循环
+  const sleep = (second) => {
+    return new Promise((resolve, reject) => {
+      setTimeout(resolve, second * 1000);
+    })
+  };
+
+  const openGreen = () => {
+    let el = document.getElementsByClassName('box')[0];
+    for (let i = 0; i < el.children.length; i++) {
+      el.children[i].classList.remove("light");
+    }
+    const target = document.getElementsByClassName('green')[0];
+    target.classList.add('light');
+  }
+  const openYellow = () => {
+    let el = document.getElementsByClassName('box')[0];
+    for (let i = 0; i < el.children.length; i++) {
+      el.children[i].classList.remove("light");
+    }
+    const target = document.getElementsByClassName('yellow')[0];
+    target.classList.add('light');
+  }
+  const openRed = () => {
+    let el = document.getElementsByClassName('box')[0];
+    for (let i = 0; i < el.children.length; i++) {
+      el.children[i].classList.remove("light");
+    }
+    const target = document.getElementsByClassName('red')[0];
+    target.classList.add('light');
+  }
+
+  const go = async() => {
+    while (true) {
+      openGreen();
+      await sleep(10);
+      openYellow();
+      await sleep(5);
+      openRed();
+      await sleep(2);
+    }
+  }
+
+  go();
+</script>
+
+</html>
