@@ -1,11 +1,197 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>五子棋</title>
+  <style>
+    .cell {
+      width: 100px;
+      height: 100px;
+      background-color: green;
+      display: inline-block;
+      border: solid 1px white;
+      vertical-align: middle;
+      line-height: 100px;
+      font-size: 50px;
+      text-align: center;
+    }
+  </style>
 </head>
+
 <body>
-  
+  <div id="gobang">
+  </div>
 </body>
+<script>
+  let pattern = [
+    0, 0, 0, 0, 0,
+    0, 0, 0, 0, 0,
+    0, 0, 0, 0, 0,
+    0, 0, 0, 0, 0,
+    0, 0, 0, 0, 0,
+  ];
+
+  let color = 2;
+
+  const show = () => {
+    let board = document.getElementById('gobang');
+    board.innerHTML = "";
+    for (let i = 0; i < 5; i++) {
+
+      for (let j = 0; j < 5; j++) {
+        let cell = document.createElement('div');
+        cell.classList.add('cell');
+        cell.innerText =
+          pattern[i * 5 + j] == 2 ? "❌" :
+            pattern[i * 5 + j] == 3 ? "⭕" : "";
+
+        //添加事件监听
+        !cell.innerText ? cell.addEventListener('click', () => move(j, i)) : null;
+
+        board.appendChild(cell);
+      }
+      board.appendChild(document.createElement('br'))
+    }
+  }
+
+  function move(x, y) {
+    pattern[y * 5 + x] = color;
+    //判断胜负
+    if (check(pattern, color)) {
+      alert(color == 2 ? "❌ is winner!" : "⭕ is winner!");
+    }
+    color = 5 - color;
+    show();
+    if (willWin(pattern, color)) {
+      console.log(color == 2 ? '❌ will winner!' : '⭕ will winner!');
+    }
+  }
+
+  //判断输赢的方法
+  function check(pattern, color) {
+    //同一行
+    for (let i = 0; i < 5; i++) {
+      let win = true;
+      for (let j = 0; j < 5; j++) {
+        if (pattern[i * 5 + j] !== color) {
+          win = false;
+        }
+      }
+      if (win)
+        return true;
+    }
+    //同一列
+    for (let i = 0; i < 5; i++) {
+      let win = true;
+      for (let j = 0; j < 5; j++) {
+        if (pattern[j * 5 + i] !== color) {
+          win = false;
+        }
+      }
+      if (win)
+        return true;
+    }
+    //斜对角
+    {
+      let win = true;
+      for (let j = 0; j < 5; j++) {
+        if (pattern[j * 5 + 4 - j] !== color) {
+          win = false;
+        }
+      }
+      if (win)
+        return true;
+    } {
+      let win = true;
+      for (let j = 0; j < 5; j++) {
+        if (pattern[j * 5 + j] !== color) {
+          win = false;
+        }
+      }
+      if (win)
+        return true;
+    }
+    return false;
+  }
+
+  //克隆数组的函数
+  function clone(pattern) {
+    return Object.create(pattern);
+  }
+
+  //判断将要赢
+  function willWin(pattern, color) {
+    for (let i = 0; i < 5; i++) {
+      for (let j = 0; j < 5; j++) {
+        if (pattern[i * 5 + j])
+          continue;
+        let tmp = clone(pattern);
+        tmp[i * 5 + j] = color;
+        if (check(tmp, color)) {
+          return [j, i];
+        }
+      }
+    }
+    return null;
+  }
+  //找到最好选择
+  function bestChoice(pattern, color) {
+    let point = willWin(pattern, color);
+    if (point) {
+      return {
+        point: point,
+        result: 1
+      }
+    }
+    let result = -1;
+    //设置一个label
+    outer: for (let i = 0; i < 5; i++) {
+      for (let j = 0; j < 5; j++) {
+        if (pattern[i * 5 + j] !== 0)
+          continue;
+        let tmp = clone(pattern);
+        tmp[i * 5 + j] = color;
+        let opp = bestChoice(tmp, 5 - color);
+
+        if (-opp.result > result) {
+          result = -opp.result;
+          point = [j, i]
+        }
+        if (result == 1)
+          break outer; //结束设置有label的循环
+      }
+    }
+    return {
+      point: point,
+      result: point ? result : 0
+    }
+  }
+  //计算机落子
+  function computerMove() {
+    let choice = bestChoice(pattern, color);
+    if (choice.point)
+      pattern[choice.point[1] * 5 + choice.point[0]] = color;
+
+    if (check(pattern, color)) {
+      alert(color == 2 ? "❌ is winner!" : "⭕ is winner!")
+    }
+
+    color = 5 - color;
+    show();
+  }
+  //人落子
+  function userMove(x, y) {
+    pattern[y * 5 + x] = color;
+    if (check(pattern, color)) {
+      alert(color == 2 ? "❌ is winner!" : "⭕ is winner!");
+    }
+    color = 5 - color;
+    show();
+    computerMove();
+  }
+  show();
+</script>
+
 </html>

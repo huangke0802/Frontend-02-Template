@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>交通灯</title>
+  <style>
+    .box {
+      display: flex;
+      justify-content: center;
+      height: 100px;
+      align-items: center;
+    }
+
+    .light {
+      width: 70px;
+      height: 70px;
+      border-radius: 50%;
+      background-color: gray;
+    }
+
+    .light.red {
+      background-color: red;
+    }
+
+    .light.green {
+      background-color: green;
+    }
+
+    .light.yellow {
+      background-color: yellow;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="box">
+    <div class='light' id="light"></div>
+  </div>
+</body>
+<script>
+  //绿灯亮10秒，黄灯亮2秒，红灯亮5秒的顺序无限循环
+  const changColor = (second, color) => {
+    let element = document.getElementById('light');
+    return new Promise((reslove, reject) => {
+      if (second === 0) {
+        element.classList.remove(...element.classList);
+        element.classList.add('light',color);
+        reslove(true);
+      } else {
+        setTimeout(() => {
+          element.classList.remove(...element.classList);
+          element.classList.add('light',color);
+          reslove(true);
+        }, second * 1000);
+      }
+
+    })
+  }
+
+  const loop = async () => {
+    await changColor(0, 'green');
+    await changColor(10, 'yellow');
+    await changColor(2, 'red');
+    await changColor(5, 'green');
+    await loop();
+  }
+
+  loop();
+
+</script>
+
+</html>
