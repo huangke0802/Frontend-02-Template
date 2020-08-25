@@ -39,7 +39,7 @@
 	命令式--图灵机
 		goto
 		if 和 while
-	盛明师--lambda
+	声明式--lambda
 		递归
 		
 	动态

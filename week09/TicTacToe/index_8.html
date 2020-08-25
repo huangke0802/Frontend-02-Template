@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
+  <title>人机对战</title>
   <style>
     .cell {
       width: 100px;
@@ -44,7 +44,7 @@
             pattern[i * 3 + j] == 1 ? "⭕" : "";
 
         //添加事件监听
-        cell.addEventListener('click', () => move(j, i))
+        cell.addEventListener('click', () => userMove(j, i))
 
         board.appendChild(cell);
       }
@@ -160,6 +160,29 @@
       point: point,
       result: point ? result : 0
     }
+  }
+  //计算机落子
+  function computerMove() {
+    let choice = bestChoice(pattern, color);
+    if (choice.point)
+      pattern[choice.point[1] * 3 + choice.point[0]] = color;
+
+    if (check(pattern, color)) {
+      alert(color == 2 ? "❌ is winner!" : "⭕ is winner!")
+    }
+
+    color = 3 - color;
+    show();
+  }
+  //人落子
+  function userMove(x, y) {
+    pattern[y * 3 + x] = color;
+    if (check(pattern, color)) {
+      alert(color == 2 ? "❌ is winner!" : "⭕ is winner!");
+    }
+    color = 3 - color;
+    show();
+    computerMove();
   }
 
   show(pattern);
