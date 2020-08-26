@@ -11,7 +11,7 @@
 
 ##### 实现无限循环代码
 	* while(true)
-	```
+	<```
 	function sleep(sec){
 		return new Promise((resolve)=>{
 			setTimeout(resolve, sec)
