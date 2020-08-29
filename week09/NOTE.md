@@ -40,3 +40,6 @@
 	javascript数组是天然的队列，也是天然的栈；
 	使用push() - shift()，或者 pop() - unshift() 是队列的操作
 	使用 push() - pop() 是栈操作；
+
+	数组删除使用splice() 时间复杂度是O(N)放入列表尾部使用pop()是效率高一些；
+	
