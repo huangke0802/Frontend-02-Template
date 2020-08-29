@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>地图编辑器</title>
+  <title>地图编辑器-启发式搜索</title>
   <style>
     .cell {
       display: inline-block;
@@ -29,6 +29,36 @@
   <button onclick="localStorage['map'] = JSON.stringify(map)">save</button>
 </body>
 <script>
+  class Sorted {
+    constructor(data, compare) {
+      this.data = data.slice();
+      this.compare = compare || ((a, b) => a - b);
+    }
+
+    take() {
+      if (!this.data.length)
+        return;
+      let min = this.data[0];
+      let minIndex = 0;
+
+      for (let i = 1; i < this.data.length; i++) {
+        if (this.compare(this.data[i], min) < 0) {
+          min = this.data[i];
+          minIndex = i;
+        }
+      }
+
+      this.data[minIndex] = this.data[this.data.length - 1];
+      this.data.pop();
+      return min;
+    }
+
+    give(v) {
+      this.data.push(v);
+    }
+
+  }
+
   let map = localStorage['map'] ? JSON.parse(localStorage['map']) : Array(10000).fill(0);
 
   let container = document.getElementById('container');
@@ -67,7 +97,7 @@
     return new Promise(resolve => setTimeout(resolve, t));
   }
 
-  async function path(map, start, end) {
+  async function findPath(map, start, end) {
     var queue = [start];
 
     async function insert(x, y) {
