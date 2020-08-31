@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>使用LL算法构建AST</title>
+</head>
+
+<body>
+
+</body>
+<script>
+  var regexp = /([0-9\.]+)|([ \t]+)|([\r\n]+)|(\*)|(\/)|(\+)|(\-)/g;
+  var dictionary = ['Number', 'Whitespace', 'LineTerminator', '*', '/', "+", '-'];
+
+
+  function tokenize(source) {
+    var result = null;
+    while (true) {
+      result = regexp.exec(source);
+      console.log("result", result)
+      if (!result) break;
+
+      for (var i = 1; i <= dictionary.length; i++) {
+        if (result[i])
+          console.log(dictionary[i - 1]);
+      }
+      console.log(result)
+    }
+  }
+  tokenize("1023 + 10 * 25")
+</script>
+
+</html>
