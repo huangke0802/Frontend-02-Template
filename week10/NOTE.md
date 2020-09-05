@@ -53,3 +53,8 @@
 
 	* LL LR
 		* 字符串多层级结构分析
+
+##### wildcard
+	wildcard: ab*c?d*abc*a?d
+		只有*：ab*cd*abc*a?d
+		只有?: c?d, a?d
