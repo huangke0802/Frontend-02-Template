@@ -4,11 +4,15 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
+  <title>proxy与双向绑定 | reactivity响应式对象</title>
 </head>
 
 <body>
+  <input id="r" type="range" min="0" max="255" />
+  <input id="g" type="range" min="0" max="255" />
+  <input id="b" type="range" min="0" max="255" />
 
+  <div id="color" style="width: 100px;height:100px"></div>
 </body>
 <script>
   let callbacks = new Map();
@@ -16,17 +20,29 @@
   let usedReactivties = [];
 
   let object = {
-    a: {
-      b: 3
-    },
-    b: 2
+    r: 1,
+    g: 1,
+    b: 1,
   }
 
   let po = reactive(object);
 
   effect(() => {
-    console.log(po.a.b)
+    document.getElementById('r').value = po.r;
   })
+  effect(() => {
+    document.getElementById('g').value = po.g;
+  })
+  effect(() => {
+    document.getElementById('b').value = po.b;
+  })
+  effect(() => {
+    document.getElementById('color').style.backgroundColor = `rgb(${po.r},${po.g},${po.b})`;
+  })
+
+  document.getElementById('r').addEventListener('input', (e) => po.r = e.target.value)
+  document.getElementById('g').addEventListener('input', (e) => po.g = e.target.value)
+  document.getElementById('b').addEventListener('input', (e) => po.b = e.target.value)
 
   function reactive(object) {
     if (reativities.has(object))
