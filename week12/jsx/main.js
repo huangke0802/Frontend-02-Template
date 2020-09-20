@@ -48,24 +48,35 @@ class Carousel extends Component {
 			let children = this.root.children;
 			let startX = event.clientX;
 
-			let move = event => {
-				let x = event.clientX - startX;
-				for(let child of children){
-					child.style.transition = 'none';
-					child.style.transform = `translateX(${- position * 500 + x}px)`;
+			let move = e => {
+				let x = e.clientX - startX;
+
+				let current = position - ((x - x % 500) / 500);
+
+				for (let offset of [-1, 0, 1]) {
+					let pos = current + offset;
+					pos = (pos + children.length) % children.length;
+
+					children[pos].style.transition = 'none';
+					children[pos].style.transform = `translateX(${- pos * 500 + offset * 500 + x % 500}px)`;
 				}
+
 			}
 
-			let up = event => {
-				let x = event.clientX - startX;
-				position = position -  Math.round(x / 500);
-				for(let child of children){
-					child.style.transition = '';
-					child.style.transform = `translateX(${- position * 500}px)`;
+			let up = e => {
+				let x = e.clientX - startX;
+				position = position - Math.round(x / 500);
+
+				for (let offset of [0, - Math.sign(Math.round(x / 500) - x + 250 * Math.sign(x))]) {
+					let pos = position + offset;
+					pos = (pos + children.length) % children.length;
+
+					children[pos].style.transition = '';
+					children[pos].style.transform = `translateX(${- pos * 500 + offset * 500}px)`;
 				}
 
 				document.removeEventListener('mousemove', move);
-				document.removeEventListener('mousemove', up);
+				document.removeEventListener('mouseup', up);
 			}
 
 			document.addEventListener('mousemove', move)
