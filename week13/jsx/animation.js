@@ -17,13 +17,17 @@ export class Timeline {
     this[TICK] = () => {
       let now = Date.now();
       for (let animation of this[ANIMATIONS]) {
-        let t = this[START_TIME].get(animation) < startTime ? now - startTime : now - this[START_TIME].get(animation) - this[PAUSE_TIME];
+        let t = this[START_TIME].get(animation) < startTime ?
+          now - startTime - this[PAUSE_TIME] - animation.delay :
+          now - this[START_TIME].get(animation) - this[PAUSE_TIME] - animation.delay;
 
         if (animation.duration < t) {
           this[ANIMATIONS].delete(animation);
           t = animation.duration;
         }
-        animation.receive(t);
+
+        if (t > 0)
+          animation.receive(t);
       }
       this[TICK_HANDLER] = requestAnimationFrame(this[TICK]);
     }
@@ -42,7 +46,13 @@ export class Timeline {
   }
 
   reset() {
+    this.pause();
 
+    this[PAUSE_TIME] = 0;
+    this[PAUSE_START] = 0;
+    this[ANIMATIONS] = new Set();
+    this[START_TIME] = new Map();
+    this[TICK_HANDLER] = null;
   }
 
   add(animation, startTime) {
@@ -57,6 +67,10 @@ export class Timeline {
 
 export class Animation {
   constructor(object, property, startValue, endValue, duration, delay, timingFunction, template) {
+
+    timingFunction = timingFunction || (v => v);
+    template = template || (v => v);
+
     this.object = object;
     this.property = property;
     this.startValue = startValue;
@@ -68,8 +82,11 @@ export class Animation {
   }
 
   receive(time) {
-    let range = this.endValue - this.startValue;
-    this.object[this.property] = this.template(this.startValue + range * time / this.duration);
+    const range = this.endValue - this.startValue;
+
+    const progress = this.timingFunction(time / this.duration);
+
+    this.object[this.property] = this.template(this.startValue + range * progress);
   }
 
 }
