@@ -5,7 +5,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
 </head>
-<body>
-  <script src="gesture.js"></script>
+<script src="gesture.js"></script>
+<body oncontextmenu="event.preventDefault()">
+<script>
+  document.documentElement.addEventListener('tap', () => {
+    console.log(`tap event`)
+  })
+</script>
 </body>
 </html>

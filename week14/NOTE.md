@@ -17,3 +17,26 @@
           -------->  press start   ------> press end
                                   移动10px
                                   ---------> pan start (同上)
+
+
+##### 处理鼠标事件
+  * 鼠标有左键、中间键、右键等
+  * 左键点击是event.button = 0 ， 中间键是event.button = 1，右键是event.button = 2；
+  * mousemove时，event.button都是0，使用event.buttons来判断；
+  * mousemove时 buttons 的顺序是反过来的，采用古典的“掩码”设计，即二进制来表示；
+    if (button === 2) {
+          key = 4;
+        } else if (4 === button) {
+          key = 2;
+        } else {
+          key = button
+        }
+
+  * mousemove时，需要移位处理：
+
+
+##### 派发事件
+  * 使用Event，new Event(type):type是事件名称；
+    let event = new Event(type);
+  * 再调用el.dispatchEvent(event)，将事件注册到元素上；
+  * el.addEventListener('tap')监听事件；
