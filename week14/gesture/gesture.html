@@ -1,16 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
 </head>
-<script src="gesture.js"></script>
 <body oncontextmenu="event.preventDefault()">
-<script>
-  document.documentElement.addEventListener('tap', () => {
-    console.log(`tap event`)
-  })
-</script>
+  <script type="module">
+    import { enableGesture } from './gesture.js';
+    enableGesture(document.documentElement);
+    document.documentElement.addEventListener('tap', () => {
+      console.log(`tap event`)
+    })
+  </script>
 </body>
+
 </html>
