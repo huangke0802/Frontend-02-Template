@@ -19,10 +19,12 @@ let d = [
 let a = < Carousel src = {
   d
 }
+onChange = {
+  event => console.log(event.detail.position)
+}
+onClick = {
+  event => window.location.href = event.detail.data
+}
 />
 
 a.mountTo(document.body);
-
-// const timeline = new Timeline();
-// timeline.add(new Animation({set a(v){console.log(v)}}, 'a', 0, 100, 1000, null));
-// timeline.start();
