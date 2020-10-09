@@ -40,3 +40,10 @@
     let event = new Event(type);
   * 再调用el.dispatchEvent(event)，将事件注册到元素上；
   * el.addEventListener('tap')监听事件；
+
+##### flick事件
+  * 需要计算鼠标或者touch移动的距离；
+  * 需要计算记录每个点的当前时间；
+  * 过滤掉时间小于500毫秒的点；
+  * 计算速度 v单位（像素每毫秒）
+  * v>1.5 标记为flick事件
