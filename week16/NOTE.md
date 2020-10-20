@@ -1,1 +1,2 @@
-学习笔记
+yeoma安装：
+ npm install -g yo
