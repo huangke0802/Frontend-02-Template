@@ -1,12 +1,12 @@
 import Vue from "vue";
-import App from "./HelloWorld.vue";
+import HelloWorld from "./HelloWorld.vue";
 
 Vue.config.productionTip = false;
 
 new Vue({
   el: "#app",
-  template: "<App/>",
+  template: "<HelloWorld/>",
   components: {
-    App
+    HelloWorld
   }
 });
