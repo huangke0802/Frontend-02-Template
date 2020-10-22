@@ -5,8 +5,5 @@ Vue.config.productionTip = false;
 
 new Vue({
   el: "#app",
-  template: "<HelloWorld/>",
-  components: {
-    HelloWorld
-  }
+  render: h => h(HelloWorld)
 });
