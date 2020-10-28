@@ -19,6 +19,10 @@
       }
       ./node_modules/.bin/mocha --require @babel/register （这条命令在windows上报错）
 
+   使用npm run test : 
+      需要按照全局的  @babel/core @babel/global
+      命令:npm install --global @babel/core @babel/global
+
 
 
 
