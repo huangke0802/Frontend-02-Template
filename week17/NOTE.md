@@ -20,18 +20,17 @@
       ./node_modules/.bin/mocha --require @babel/register （这条命令在windows上报错）
 
    使用npm run test : 
-      需要按照全局的  @babel/core @babel/global
-      命令:npm install --global @babel/core @babel/global
-
-
-
-
-
-
+      需要按照全局的  @babel/core @babel/register
+      命令:npm install --global @babel/core @babel/register
 
 
 ##### 单元测试工具：Code Coverage
 
+	1、nyc 安装： npm install --save-dev nyc
+	  windows 使用 全局安装才能使用nyc npm install --global nyc  
+ 
+  2、babel-plugin-istanbul
+	3、@istanbuljs/nyc-config-babel
 
 
 
