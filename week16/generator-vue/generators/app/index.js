@@ -35,7 +35,7 @@ module.exports = class extends Generator {
     this.npmInstall(['vue'], {
       'save-dev': false
     });
-    this.npmInstall(['webpack', 'vue-loader', 'vue-template-compiler', 'vue-style-loader', 'css-loader', 'copy-webpack-plugin'], {
+    this.npmInstall(['webpack', 'vue-loader', 'vue-template-compiler', 'vue-style-loader', 'css-loader', 'copy-webpack-plugin','webpack-cli'], {
       'save-dev': true
     });
 

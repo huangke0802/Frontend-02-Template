@@ -36,14 +36,12 @@ module.exports = class extends Generator {
 
 
     this.npmInstall(["webpack", "vue-loader","vue-loader-plugin",
-      "vue-style-loader", "css-loader", "vue-template-compiler","html-webpack-plugin"
+      "vue-style-loader", "css-loader", "vue-template-compiler",'copy-webpack-plugin',
+      "webpack-cli"
     ], {
       'save-dev': true
     });
 
-  }
-
-  copyFiles() {
     this.fs.copyTpl(
       this.templatePath('HelloWorld.vue'),
       this.destinationPath('src/HelloWorld.vue')
@@ -51,6 +49,12 @@ module.exports = class extends Generator {
     this.fs.copyTpl(
       this.templatePath('webpack.config.js'),
       this.destinationPath('webpack.config.js')
+    );
+    this.fs.copyTpl(
+      this.templatePath('index.html'),
+      this.destinationPath('src/index.html'), {
+        title: answers.name
+      }
     );
     this.fs.copyTpl(
       this.templatePath('main.js'),
