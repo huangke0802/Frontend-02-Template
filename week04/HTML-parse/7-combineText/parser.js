@@ -190,7 +190,7 @@ function singleQuotedAttributeValue(c) {
 
   } else {
     currentAttribute.value += c;
-    return doubleQuotedAttributeValue;
+    return singleQuotedAttributeValue;
   }
 }
 
@@ -206,8 +206,7 @@ function afterQuotedAttributeValue(c) {
   } else if (c == EOF) {
 
   } else {
-    currentAttribute.value += c;
-    return doubleQuotedAttributeValue;
+    throw new Error('unexpected charater \"' + c + '\"');
   }
 }
 
