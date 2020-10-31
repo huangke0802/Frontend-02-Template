@@ -71,7 +71,7 @@ function _data(c) {
       type: "text",
       content: c
     })
-    return _data;
+    return;
   }
 }
 
@@ -85,7 +85,11 @@ function tagOpen(c) {
     }
     return tagName(c);
   } else {
-    return;
+    emit({
+      type: "text",
+      content: c
+    })
+    return _data;
   }
 }
 
@@ -257,8 +261,10 @@ function afterAttributeName(c) {
 }
 
 function selfClosingStartTag(c) {
+  console.log(c)
   if (c == '>') {
     currentToken.isSelfClosing = true;
+    emit(currentToken);
     return _data;
   } else if (c == 'EOF') {
 
@@ -268,10 +274,17 @@ function selfClosingStartTag(c) {
 }
 
 module.exports.parseHTML = function parserHTML(html) {
+  currentToken = null;
+  currentAttribute = null;
+  currentTextNode = null;
+  stack = [{
+    type: 'document',
+    children: []
+  }]
   let state = _data;
   for (let c of html) {
     state = state(c);
   }
   state = state(EOF);
-  console.log(stack[0])
+  return stack[0];
 }
