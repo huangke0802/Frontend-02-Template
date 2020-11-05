@@ -1,6 +1,16 @@
-let http = require('http');
+const http = require('http');
 
-http.createServer(function(req, res) {
-  console.log(req);
-  res.end('Hello World');
+const fs = require('fs');
+
+http.createServer(function (request, response) {
+
+  const outFile = fs.createWriteStream('../server/public/index.html');
+
+  request.on('data', chunk => {
+    outFile.write(chunk);
+  });
+  request.on('end', () => {
+    outFile.end();
+    response.end('Success');
+  })
 }).listen(8083);

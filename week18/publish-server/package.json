@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "publish" : "scp -P 8022 -r ./* huangke@127.0.0.1:/home/huangke/publish-server",
+    "start" : "node ./server.js"
   },
   "keywords": [],
   "author": "",
