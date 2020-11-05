@@ -14,12 +14,16 @@ let request = http.request({
 });
 
 const file = fs.createReadStream('./a.html');
-file.on('data', chunk => {
-  console.log(chunk.toString());
-  request.write(chunk)
-})
+// file.on('data', chunk => {
+//   console.log(chunk.toString());
+//   request.write(chunk)
+// })
 
-file.on('end', () => {
-  console.log('read finished');
-  request.end();
-});
+// file.on('end', () => {
+//   console.log('read finished');
+//   request.end();
+// });
+
+file.pipe(request);
+
+file.on('end', () => request.end())
