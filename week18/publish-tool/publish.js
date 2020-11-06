@@ -1,28 +1,49 @@
 const http = require('http');
-const archiver = require('archiver')
-
-const request = http.request({
-  hostname: '127.0.0.1',
-  port: 8084,
-  method: 'POST',
-  headers: {
-    "Content-Type": "application/octet-stream"
-  }
-}, response => {
-  console.log(response)
-});
+const archiver = require('archiver');
+const child_process = require('child_process');
 
 
-const archive = archiver('zip', {
-  zlib: {
-    level: 9
-  },
-})
+// 打开 https://github.com/login/oauth/authorize
+const client_id = "Iv1.ee4f25957c54f846",
+  redirect_uri = "";
+child_process.exec(`start https://github.com/login/oauth/authorize?client_id=${client_id}`)
 
-archive.directory('./sample/', false);
-archive.finalize();
-archive.pipe(request)
+// 创建server，接受token，然后点击发布
 
-request.on('end', () => {
-  console.log('Success End ')
-})
+
+
+
+
+
+
+
+
+
+
+
+
+
+// const request = http.request({
+//   hostname: '127.0.0.1',
+//   port: 8084,
+//   method: 'POST',
+//   headers: {
+//     "Content-Type": "application/octet-stream"
+//   }
+// }, response => {
+//   console.log(response)
+// });
+
+// const archive = archiver('zip', {
+//   zlib: {
+//     level: 9
+//   },
+// })
+
+// archive.directory('./sample/', false);
+// archive.finalize();
+// archive.pipe(request)
+
+// request.on('end', () => {
+//   console.log('Success End ')
+// })

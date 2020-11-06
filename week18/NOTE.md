@@ -42,3 +42,8 @@
 
 查看已开启端口
 [root@bogon ~]# firewall-cmd --list-ports
+
+
+node 工具：
+  压缩：archiver
+  解压：unzipper
