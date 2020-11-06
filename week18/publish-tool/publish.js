@@ -1,10 +1,9 @@
 const http = require('http');
+const archiver = require('archiver')
 
-const fs = require('fs');
-
-let request = http.request({
+const request = http.request({
   hostname: '127.0.0.1',
-  port: 8090,
+  port: 8084,
   method: 'POST',
   headers: {
     "Content-Type": "application/octet-stream"
@@ -13,17 +12,17 @@ let request = http.request({
   console.log(response)
 });
 
-const file = fs.createReadStream('./a.html');
-// file.on('data', chunk => {
-//   console.log(chunk.toString());
-//   request.write(chunk)
-// })
 
-// file.on('end', () => {
-//   console.log('read finished');
-//   request.end();
-// });
+const archive = archiver('zip', {
+  zlib: {
+    level: 9
+  },
+})
 
-file.pipe(request);
+archive.directory('./sample/', false);
+archive.finalize();
+archive.pipe(request)
 
-file.on('end', () => request.end())
+request.on('end', () => {
+  console.log('Success End ')
+})
